@@ -310,7 +310,7 @@ export default function LandingPage() {
         <nav className="nav">
           <ApeLogoCompact dark size={30} />
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <a href={`${APP_URL}/entrar`} className="nav-cta" style={{ background: 'transparent', borderColor: 'rgba(255,255,255,0.15)' }}>
+            <a href={`${APP_URL}/entrar`} className="nav-cta" style={{ background: 'transparent', borderColor: 'rgba(255,255,255,0.15)' }} target='_blank'>
               Acessar plataforma
             </a>
             <a href={`${APP_URL}/demo`} className="nav-cta" onClick={() => track('cta_clicked', { cta: 'nav_demo' })}>
