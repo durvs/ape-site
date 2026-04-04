@@ -396,7 +396,7 @@ export default function LandingPage() {
           <div className="section-inner">
             <div className="section-label">Planos</div>
             <h2 className="section-title">Um plano pra cada<br /><em>tamanho</em> de condomínio</h2>
-            <p className="section-sub">Taxa de setup única de R$399. Cancele quando quiser.</p>
+            <p className="section-sub">Taxa de setup única de R$999. Cancele quando quiser.</p>
             <div className="pricing-grid">
               <div className="plan">
                 <div className="plan-name">Essencial</div>
