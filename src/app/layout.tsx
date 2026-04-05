@@ -4,6 +4,8 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://apeplatform.com"),
+  alternates: { canonical: "/" },
   title: "Ape Platform — Chatbot com IA para condomínios",
   description:
     "Morador pergunta, o chatbot responde — com base no regimento do seu condomínio. Qualquer hora, sem precisar chamar o síndico.",
