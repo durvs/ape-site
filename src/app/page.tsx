@@ -144,29 +144,51 @@ export default function LandingPage() {
         .nav-cta:hover { background: rgba(99,102,241,0.28); border-color: rgba(99,102,241,0.6); }
 
         .hero {
-          min-height: 100vh; background: var(--night);
+          min-height: 100vh;
           display: flex; flex-direction: column; align-items: center;
           justify-content: center; text-align: center;
           padding: 120px 24px 80px;
           position: relative; overflow: hidden;
+          background: var(--night);
         }
-        .hero::before {
-          content: '';
+        .hero-bg {
           position: absolute; inset: 0;
-          background-image: radial-gradient(rgba(99,102,241,0.22) 1px, transparent 1px);
-          background-size: 28px 28px;
-          mask-image: radial-gradient(ellipse 85% 75% at 50% 72%, black 30%, transparent 100%);
+          background-image: url('/hero-bg.jpg');
+          background-size: cover; background-position: center 40%;
+          filter: brightness(0.45) saturate(1.1);
         }
-        .hero-orb {
-          position: absolute;
-          width: 1000px; height: 560px;
-          border-radius: 50%;
-          bottom: -120px; left: 50%;
-          translate: -50% 0;
-          background: radial-gradient(ellipse at 50% 85%, rgba(99,102,241,0.55) 0%, rgba(99,102,241,0.28) 30%, rgba(99,102,241,0.08) 60%, transparent 75%);
-          animation: pulse-orb 6s ease-in-out infinite;
-          pointer-events: none;
+        .hero-overlay {
+          position: absolute; inset: 0;
+          background: linear-gradient(
+            180deg,
+            rgba(11,13,18,0.7) 0%,
+            rgba(11,13,18,0.3) 40%,
+            rgba(11,13,18,0.5) 70%,
+            rgba(11,13,18,0.92) 100%
+          );
         }
+        .hero h1 { text-shadow: 0 2px 40px rgba(0,0,0,0.5); }
+        .hero h1 em { color: #A5B4FC; }
+        .hero p {
+          color: rgba(255,255,255,0.82);
+          text-shadow: 0 1px 20px rgba(0,0,0,0.4);
+        }
+        .hero .hero-preview {
+          background: rgba(17,19,24,0.85);
+          backdrop-filter: blur(20px);
+          border-color: rgba(255,255,255,0.12);
+        }
+        .hero .hero-badge {
+          background: rgba(0,0,0,0.4); backdrop-filter: blur(12px);
+          border-color: rgba(165,180,252,0.35); color: #A5B4FC;
+        }
+        .hero .hero-badge-dot { background: #A5B4FC; }
+        .hero-credit {
+          position: absolute; bottom: 12px; right: 16px; z-index: 2;
+          font-size: 10px; color: rgba(255,255,255,0.3);
+          text-decoration: none; transition: color 0.2s;
+        }
+        .hero-credit:hover { color: rgba(255,255,255,0.6); }
 
         .hero-badge {
           display: inline-flex; align-items: center; gap: 7px;
@@ -188,14 +210,17 @@ export default function LandingPage() {
           line-height: 1.0; color: #fff;
           max-width: 780px; position: relative; z-index: 1;
           letter-spacing: -0.02em; margin-bottom: 24px;
+          text-shadow: 0 2px 40px rgba(0,0,0,0.5);
         }
-        .hero h1 em { font-style: italic; color: var(--indigo-light); }
+        .hero h1 em { font-style: italic; color: #A5B4FC; }
 
         .hero p {
-          font-size: clamp(16px, 2vw, 19px); color: #94A3B8;
+          font-size: clamp(16px, 2vw, 19px);
+          color: rgba(255,255,255,0.82);
           max-width: 520px; line-height: 1.65;
           position: relative; z-index: 1; font-weight: 300;
           margin-bottom: 44px;
+          text-shadow: 0 1px 20px rgba(0,0,0,0.4);
         }
 
         .hero-actions { display: flex; gap: 12px; align-items: center; position: relative; z-index: 1; flex-wrap: wrap; justify-content: center; }
@@ -320,7 +345,8 @@ export default function LandingPage() {
         </nav>
 
         <section className="hero">
-          <div className="hero-orb" />
+          <div className="hero-bg" />
+          <div className="hero-overlay" />
           <div className="hero-badge fade-up">
             <span className="hero-badge-dot" />
             IA treinada pro seu condomínio
@@ -341,6 +367,7 @@ export default function LandingPage() {
             </a>
           </div>
           <ChatPreview />
+          <a className="hero-credit" href="https://unsplash.com" target="_blank" rel="noopener noreferrer">Unsplash</a>
         </section>
 
         <section className="section features-bg" id="features">
