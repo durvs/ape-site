@@ -8,11 +8,11 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
   title: "Ape Platform — Chatbot com IA para condomínios",
   description:
-    "Morador pergunta, o chatbot responde — com base no regimento do seu condomínio. Qualquer hora, sem precisar chamar o síndico.",
+    "Morador pergunta, o chatbot responde — direto do regimento do seu condomínio. A qualquer hora, sem lotar o WhatsApp do síndico.",
   openGraph: {
     title: "Ape Platform — Chatbot com IA para condomínios",
     description:
-      "Morador pergunta, o chatbot responde — com base no regimento do seu condomínio.",
+      "Morador pergunta, o chatbot responde — direto do regimento do seu condomínio. A qualquer hora.",
     url: "https://apeplatform.com",
     siteName: "Ape Platform",
     locale: "pt_BR",

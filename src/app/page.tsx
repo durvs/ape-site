@@ -57,7 +57,7 @@ function ChatPreview() {
         Posso usar a churrasqueira amanhã às 14h?
       </div>
       <div className="chat-bubble bubble-bot">
-        Sim! Segundo o <strong>Regimento Interno (Art. 12)</strong>, a churrasqueira pode ser reservada das 10h às 22h. Você pode solicitar a reserva diretamente com a administração. Deseja que eu te informe o contato?
+        Pode sim! Segundo o <strong>Regimento Interno (Art. 12)</strong>, a churrasqueira pode ser reservada das 10h às 22h. Quer que eu envie o contato da administração para você reservar?
       </div>
     </div>
   )
@@ -352,14 +352,14 @@ export default function LandingPage() {
             IA treinada pro seu condomínio
           </div>
           <h1 className="fade-up delay-1">
-            Seu condomínio<br />com um <em>assistente</em><br />que sabe tudo
+            Seu condomínio<br />com um assistente que<br />decorou o <em>regimento</em>
           </h1>
           <p className="fade-up delay-2">
-            Morador pergunta, o chatbot responde — com base no regimento do seu condomínio. Qualquer hora, sem precisar chamar o síndico.
+            Morador pergunta, o chatbot responde — direto do regimento do seu condomínio. A qualquer hora, sem lotar o WhatsApp do síndico.
           </p>
           <div className="hero-actions fade-up delay-3">
             <a href={`${APP_URL}/demo`} className="btn-primary" onClick={() => track('cta_clicked', { cta: 'hero_demo' })}>
-              Agendar uma demo
+              Quero agendar uma demo
               <ChevronRight size={16} />
             </a>
             <a href="#como-funciona" className="btn-ghost" onClick={() => track('cta_clicked', { cta: 'hero_como_funciona' })}>
@@ -373,23 +373,23 @@ export default function LandingPage() {
         <section className="section features-bg" id="features">
           <div className="section-inner">
             <div className="section-label">Funcionalidades</div>
-            <h2 className="section-title">Chatbot, comunicados e gestão —<br />no mesmo <em>lugar</em></h2>
-            <p className="section-sub">Do chatbot ao comunicado, sem precisar de vários sistemas.</p>
+            <h2 className="section-title">Atendimento, comunicação e gestão —<br />sem trocar de <em>sistema</em></h2>
+            <p className="section-sub">Tudo integrado no mesmo painel. Sem planilha, sem grupo paralelo.</p>
             <div className="features-grid">
               <div className="feature-card">
                 <div className="feature-icon"><FileText size={22} color="#6366F1" /></div>
                 <h3>IA treinada nos seus documentos</h3>
-                <p>Suba o regimento, atas e circulares. O chatbot passa a responder com base no que está escrito lá — não em dados genéricos.</p>
+                <p>Suba regimento, atas e circulares. O chatbot responde com base no que está escrito — não inventa.</p>
               </div>
               <div className="feature-card">
                 <div className="feature-icon"><Bell size={22} color="#6366F1" /></div>
                 <h3>Comunicados por e-mail e WhatsApp</h3>
-                <p>Envie avisos para todos os moradores com um clique. Com suporte a imagens e texto formatado, via e-mail ou grupo do WhatsApp.</p>
+                <p>Avise todos os moradores com um clique. Por e-mail ou direto no grupo do WhatsApp — com imagem, formatação e tudo.</p>
               </div>
               <div className="feature-card">
                 <div className="feature-icon"><Shield size={22} color="#6366F1" /></div>
                 <h3>Painel do síndico</h3>
-                <p>Cadastre moradores, suba documentos, configure o chatbot. Sem precisar chamar ninguém de TI.</p>
+                <p>Cadastre moradores, suba documentos e configure o chatbot. Você mesmo faz, sem depender de ninguém.</p>
               </div>
             </div>
           </div>
@@ -398,7 +398,7 @@ export default function LandingPage() {
         <section className="section" id="como-funciona">
           <div className="section-inner">
             <div className="section-label">Como funciona</div>
-            <h2 className="section-title">Como colocar<br />no <em>ar</em></h2>
+            <h2 className="section-title">Pronto pra funcionar<br />em três <em>passos</em></h2>
             <div className="steps-grid">
               <div className="step">
                 <div className="step-num">1</div>
@@ -413,7 +413,7 @@ export default function LandingPage() {
               <div className="step">
                 <div className="step-num">3</div>
                 <h3>Chatbot ativo 24/7</h3>
-                <p>Moradores tiram dúvidas a qualquer hora. O síndico para de atender pergunta básica no WhatsApp.</p>
+                <p>Moradores tiram dúvidas a qualquer hora. Você para de responder a mesma pergunta no WhatsApp.</p>
               </div>
             </div>
           </div>
@@ -423,12 +423,12 @@ export default function LandingPage() {
           <div className="section-inner">
             <div className="section-label">Planos</div>
             <h2 className="section-title">Um plano pra cada<br /><em>tamanho</em> de condomínio</h2>
-            <p className="section-sub">Taxa de setup única de R$999. Cancele quando quiser.</p>
+            <p className="section-sub">Ativação única de R$999 com configuração completa. Sem fidelidade.</p>
             <div className="pricing-grid">
               <div className="plan">
                 <div className="plan-name">Essencial</div>
                 <div className="plan-price">R$299<span>/mês</span></div>
-                <div className="plan-desc">Para condomínios de até 100 unidades que querem começar com IA.</div>
+                <div className="plan-desc">Ideal para condomínios menores que querem automatizar o atendimento.</div>
                 <div className="plan-divider" />
                 <ul className="plan-features">
                   <li><Check size={14} /><UnitsLabel n={100} /></li>
@@ -437,7 +437,7 @@ export default function LandingPage() {
                   ))}
                 </ul>
                 <a href={`${APP_URL}/demo`} className="plan-btn plan-btn-outline" onClick={() => track('cta_clicked', { cta: 'plan_essencial' })}>
-                  Escolher Essencial
+                  Começar com Essencial
                 </a>
               </div>
 
@@ -445,7 +445,7 @@ export default function LandingPage() {
                 <div className="plan-badge">Mais completo</div>
                 <div className="plan-name">Pro</div>
                 <div className="plan-price">R$499<span>/mês</span></div>
-                <div className="plan-desc">Para condomínios maiores que precisam de mais capacidade e controle.</div>
+                <div className="plan-desc">Para condomínios com mais unidades e operação mais robusta.</div>
                 <div className="plan-divider" />
                 <ul className="plan-features">
                   <li><Check size={14} /><UnitsLabel n={250} /></li>
@@ -454,7 +454,7 @@ export default function LandingPage() {
                   ))}
                 </ul>
                 <a href={`${APP_URL}/demo`} className="plan-btn plan-btn-solid" onClick={() => track('cta_clicked', { cta: 'plan_pro' })}>
-                  Escolher Pro
+                  Começar com Pro
                 </a>
               </div>
 
@@ -479,10 +479,10 @@ export default function LandingPage() {
 
         <section className="cta-section">
           <h2>Quer ver funcionando<br />no seu <em>condomínio</em>?</h2>
-          <p>Agende uma demo gratuita de 30 minutos. Sem compromisso.</p>
+          <p>Veja o chatbot respondendo com os documentos do seu condomínio. 30 minutos, sem compromisso.</p>
           <div className="cta-actions">
             <a href={`${APP_URL}/demo`} className="btn-primary" onClick={() => track('cta_clicked', { cta: 'footer_demo' })}>
-              Agendar demo gratuita
+              Quero ver a demo
               <ChevronRight size={16} />
             </a>
           </div>
