@@ -135,7 +135,7 @@ export function ApeLogo({
             lineHeight: 1,
           }}
         >
-          chatbot para condomínios
+          gestão inteligente de condomínios
         </span>
       </div>
     </div>
