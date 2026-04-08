@@ -509,7 +509,7 @@ export default function LandingPage() {
           </div>
 
           <h1 className="fade-up delay-1">
-            Seu condomínio operando<br />no <em>piloto automático</em>
+            A gestão do condomínio<br /><em>ficou inteligente</em>
           </h1>
 
           <p className="fade-up delay-2">
