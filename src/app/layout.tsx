@@ -18,6 +18,12 @@ export const metadata: Metadata = {
     locale: "pt_BR",
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ape Platform — IA que opera seu condomínio",
+    description:
+      "Chatbot treinado no regimento, ata de assembleia automática, reserva de espaços, comunicados por WhatsApp e painel de gestão completo.",
+  },
 };
 
 export default function RootLayout({
