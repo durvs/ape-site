@@ -875,6 +875,7 @@ export default function LandingPage() {
                     'Agentes customizados (portaria, financeiro, manutenção)',
                     'Comunicados por WhatsApp',
                     'Automações e fluxos personalizados',
+                    'Domínio próprio do condomínio',
                     'Suporte prioritário',
                   ].map((f) => (
                     <li key={f}><Check size={14} />{f}</li>
@@ -895,6 +896,7 @@ export default function LandingPage() {
                   <li><Check size={14} />Sem limite de unidades</li>
                   {[
                     'Tudo do Pro',
+                    'Ata de assembleia gerada por IA',
                     'Gestão multi-prédio em painel unificado',
                     'Integrações customizadas',
                     'Contrato e SLA dedicados',
@@ -908,9 +910,6 @@ export default function LandingPage() {
               </div>
             </div>
 
-            <div className="addons-note">
-              <strong>Add-ons disponíveis:</strong> Secretário IA de Assembleias (R$49/mês ou R$15/assembleia) · WhatsApp bidirecional (R$99/mês) · Domínio próprio (R$49/mês)
-            </div>
           </div>
         </section>
 
