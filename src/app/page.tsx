@@ -361,6 +361,206 @@ export default function LandingPage() {
         .feature-card h3 { font-size: 18px; font-weight: 600; color: var(--ink); margin-bottom: 10px; }
         .feature-card p { font-size: 14px; color: var(--slate); line-height: 1.65; font-weight: 300; }
 
+        /* ── Sneak Peek ─────────────────────────────────────────── */
+
+        .peek-section {
+          background: var(--night);
+          padding: 112px 24px 120px;
+          position: relative;
+          overflow: hidden;
+        }
+        .peek-section::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background:
+            radial-gradient(ellipse 60% 50% at 30% 60%, rgba(99,102,241,0.08) 0%, transparent 70%),
+            radial-gradient(ellipse 50% 40% at 70% 40%, rgba(129,140,248,0.06) 0%, transparent 70%);
+          pointer-events: none;
+        }
+        .peek-section::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+          background-size: 32px 32px;
+          pointer-events: none;
+        }
+
+        .peek-header {
+          text-align: center;
+          position: relative;
+          z-index: 2;
+          margin-bottom: 72px;
+        }
+        .peek-header .section-label { color: var(--indigo-light); }
+        .peek-header .section-title { color: #fff; }
+        .peek-header .section-title em { color: var(--indigo-light); }
+        .peek-header .section-sub {
+          color: #94A3B8;
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        .peek-stage {
+          position: relative;
+          max-width: 1100px;
+          margin: 0 auto;
+          height: 520px;
+          z-index: 2;
+        }
+
+        .peek-window {
+          position: absolute;
+          border-radius: 16px;
+          overflow: hidden;
+          box-shadow:
+            0 32px 80px rgba(0,0,0,0.55),
+            0 0 0 1px rgba(255,255,255,0.08);
+          transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .peek-window img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: top left;
+        }
+
+        /* Dashboard — left, slightly behind */
+        .peek-dashboard {
+          width: 58%;
+          height: 440px;
+          left: 0;
+          top: 40px;
+          transform: perspective(1200px) rotateY(4deg) rotateX(-1deg);
+          z-index: 1;
+        }
+        .peek-dashboard::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(
+            135deg,
+            transparent 30%,
+            rgba(11,13,18,0.3) 70%,
+            rgba(11,13,18,0.85) 100%
+          );
+          pointer-events: none;
+        }
+        .peek-dashboard:hover {
+          transform: perspective(1200px) rotateY(2deg) rotateX(0deg) translateY(-4px);
+        }
+
+        /* Chatbot — right, in front */
+        .peek-chatbot {
+          width: 54%;
+          height: 460px;
+          right: 0;
+          top: 0;
+          transform: perspective(1200px) rotateY(-3deg) rotateX(-1deg);
+          z-index: 2;
+        }
+        .peek-chatbot::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(
+            225deg,
+            transparent 35%,
+            rgba(11,13,18,0.25) 65%,
+            rgba(11,13,18,0.8) 100%
+          );
+          pointer-events: none;
+        }
+        .peek-chatbot:hover {
+          transform: perspective(1200px) rotateY(-1deg) rotateX(0deg) translateY(-4px);
+        }
+
+        /* Glow orbs behind windows */
+        .peek-glow {
+          position: absolute;
+          border-radius: 50%;
+          filter: blur(80px);
+          pointer-events: none;
+          z-index: 0;
+        }
+        .peek-glow-1 {
+          width: 350px; height: 350px;
+          background: rgba(99,102,241,0.18);
+          left: 8%;
+          top: 15%;
+          animation: pulse-orb 5s ease-in-out infinite;
+        }
+        .peek-glow-2 {
+          width: 280px; height: 280px;
+          background: rgba(129,140,248,0.12);
+          right: 12%;
+          top: 5%;
+          animation: pulse-orb 6s ease-in-out infinite 1s;
+        }
+
+        /* Bottom fade to next section */
+        .peek-fade-bottom {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          height: 140px;
+          background: linear-gradient(to bottom, transparent, var(--night));
+          z-index: 3;
+          pointer-events: none;
+        }
+
+        .peek-caption {
+          position: absolute;
+          bottom: -8px;
+          padding: 6px 14px;
+          border-radius: 8px;
+          background: rgba(17,19,24,0.85);
+          backdrop-filter: blur(12px);
+          border: 1px solid rgba(255,255,255,0.1);
+          font-size: 12px;
+          font-weight: 500;
+          color: #94A3B8;
+          z-index: 4;
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          white-space: nowrap;
+        }
+        .peek-caption-left { left: 24px; }
+        .peek-caption-right { right: 24px; }
+        .peek-caption-dot {
+          width: 5px; height: 5px;
+          border-radius: 50%;
+          background: var(--indigo-light);
+        }
+
+        @media (max-width: 900px) {
+          .peek-stage {
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+          }
+          .peek-dashboard,
+          .peek-chatbot {
+            position: relative;
+            width: 100%;
+            height: 280px;
+            left: auto;
+            right: auto;
+            top: auto;
+            transform: perspective(800px) rotateY(0deg) rotateX(-2deg);
+          }
+          .peek-dashboard:hover,
+          .peek-chatbot:hover {
+            transform: perspective(800px) rotateY(0deg) rotateX(0deg) translateY(-4px);
+          }
+          .peek-caption { display: none; }
+        }
+
         /* ── Steps ──────────────────────────────────────────────── */
 
         .steps-grid {
@@ -554,6 +754,50 @@ export default function LandingPage() {
               ))}
             </div>
           </div>
+        </section>
+
+        {/* ── Sneak Peek ───────────────────────────────────────── */}
+        <section className="peek-section" id="preview">
+          <div className="peek-header">
+            <div className="section-label">A plataforma por dentro</div>
+            <h2 className="section-title">
+              Um painel pro síndico.<br />Um chat pro <em>morador</em>.
+            </h2>
+            <p className="section-sub">
+              O gestor organiza documentos, moradores e comunicados sem sair do painel. O morador tira dúvidas com a IA direto no chat. Ninguém precisa ligar pra portaria.
+            </p>
+          </div>
+
+          <div className="peek-stage">
+            <div className="peek-glow peek-glow-1" />
+            <div className="peek-glow peek-glow-2" />
+
+            <div className="peek-window peek-dashboard">
+              <img
+                src="/preview-dashboard.png"
+                alt="Painel do gestor — documentos, moradores e configurações"
+                loading="lazy"
+              />
+              <span className="peek-caption peek-caption-left">
+                <span className="peek-caption-dot" />
+                Visão do síndico
+              </span>
+            </div>
+
+            <div className="peek-window peek-chatbot">
+              <img
+                src="/preview-chatbot.png"
+                alt="Chatbot respondendo dúvidas de moradores com base no regimento"
+                loading="lazy"
+              />
+              <span className="peek-caption peek-caption-right">
+                <span className="peek-caption-dot" />
+                Experiência do morador
+              </span>
+            </div>
+          </div>
+
+          <div className="peek-fade-bottom" />
         </section>
 
         {/* ── How it works ─────────────────────────────────────── */}
