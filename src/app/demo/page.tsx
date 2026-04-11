@@ -200,7 +200,7 @@ export default function DemoPage() {
                   </button>
 
                   <p style={{ fontSize: '12px', color: '#9CA3AF', textAlign: 'center' }}>
-                    Sem spam. Entrarei em contato em até 24h.
+                    Resposta da equipe em até 24h úteis.
                   </p>
                 </form>
               </>
