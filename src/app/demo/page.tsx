@@ -1,14 +1,15 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { track } from '@vercel/analytics'
 import Link from 'next/link'
-import { ArrowLeft, CheckCircle2, Loader2 } from 'lucide-react'
+import { ArrowLeft, Loader2 } from 'lucide-react'
 
 export default function DemoPage() {
+  const router = useRouter()
   const [form, setForm] = useState({ name: '', email: '', phone: '', condoName: '', units: '' })
   const [loading, setLoading] = useState(false)
-  const [done, setDone] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => { track('demo_form_viewed') }, [])
@@ -31,13 +32,13 @@ export default function DemoPage() {
 
       if (!res.ok) throw new Error('Erro ao enviar')
 
-      // Evento de conversão
       track('demo_requested', {
         condoName: form.condoName || 'não informado',
         units: form.units || 'não informado',
       })
 
-      setDone(true)
+      sessionStorage.setItem('ape_demo_sent', '1')
+      router.push('/demo/obrigado')
     } catch {
       setError('Não foi possível enviar. Tente novamente ou mande um e-mail para contato@apeplatform.online.')
     } finally {
@@ -73,23 +74,6 @@ export default function DemoPage() {
         <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '48px 24px' }}>
           <div style={{ width: '100%', maxWidth: '480px' }}>
 
-            {done ? (
-              <div style={{ textAlign: 'center', padding: '48px 24px' }}>
-                <div style={{ width: 64, height: 64, borderRadius: '50%', background: 'rgba(99,102,241,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px' }}>
-                  <CheckCircle2 size={28} color="#6366F1" />
-                </div>
-                <h1 style={{ fontFamily: "'Instrument Serif', serif", fontSize: '32px', color: '#0F172A', marginBottom: '12px', lineHeight: 1.1 }}>
-                  Recebemos sua solicitação!
-                </h1>
-                <p style={{ fontSize: '15px', color: '#64748B', lineHeight: 1.65, marginBottom: '32px', fontWeight: 300 }}>
-                  Entrarei em contato em até 24h para agendar a demo. Até breve!
-                </p>
-                <Link href="/" style={{ display: 'inline-block', padding: '11px 24px', borderRadius: '9px', background: '#6366F1', color: '#fff', fontSize: '14px', fontWeight: 600, textDecoration: 'none' }}>
-                  Voltar ao início
-                </Link>
-              </div>
-            ) : (
-              <>
                 <div style={{ marginBottom: '32px' }}>
                   <p style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#6366F1', marginBottom: '8px' }}>
                     Demo gratuita
@@ -203,8 +187,6 @@ export default function DemoPage() {
                     Resposta da equipe em até 24h úteis.
                   </p>
                 </form>
-              </>
-            )}
 
           </div>
         </div>
