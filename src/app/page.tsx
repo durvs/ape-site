@@ -850,13 +850,13 @@ export default function LandingPage() {
             <h2 className="section-title">
               Escolha pelo tamanho do condomínio.<br /><em>Escale quando precisar.</em>
             </h2>
-            <p className="section-sub">Ativação única de R$999 com configuração completa. Sem fidelidade, sem multa.</p>
+            <p className="section-sub">Setup de R$499 com configuração completa. Primeiros 30 dias grátis — a mensalidade começa no mês seguinte. Sem fidelidade, sem multa.</p>
 
             <div className="pricing-grid">
               {/* Essencial */}
               <div className="plan">
                 <div className="plan-name">Essencial</div>
-                <div className="plan-price">R$299<span>/mês</span></div>
+                <div className="plan-price">R$199<span>/mês</span></div>
                 <div className="plan-desc">Para condomínios de até 100 unidades que querem sair do improviso.</div>
                 <div className="plan-divider" />
                 <ul className="plan-features">
@@ -872,7 +872,7 @@ export default function LandingPage() {
                   ))}
                 </ul>
                 <button className="plan-btn plan-btn-outline" disabled={!!checkoutLoading} onClick={() => { track('cta_clicked', { cta: 'plan_essencial' }); handleCheckout('essencial') }}>
-                  {checkoutLoading === 'essencial' ? 'Aguarde...' : 'Começar com Essencial'}
+                  {checkoutLoading === 'essencial' ? 'Aguarde...' : 'Experimentar grátis por 30 dias'}
                 </button>
               </div>
 
@@ -880,11 +880,11 @@ export default function LandingPage() {
               <div className="plan plan-featured">
                 <div className="plan-badge">Mais completo</div>
                 <div className="plan-name">Pro</div>
-                <div className="plan-price">R$499<span>/mês</span></div>
-                <div className="plan-desc">Para condomínios maiores ou administradoras com operação mais robusta.</div>
+                <div className="plan-price">R$399<span>/mês</span></div>
+                <div className="plan-desc">Para condomínios de até 200 unidades com operação mais completa.</div>
                 <div className="plan-divider" />
                 <ul className="plan-features">
-                  <li><Check size={14} /><UnitsLabel n={250} /></li>
+                  <li><Check size={14} /><UnitsLabel n={200} /></li>
                   {[
                     'Tudo do Essencial',
                     'Até 100 documentos indexados',
@@ -898,7 +898,7 @@ export default function LandingPage() {
                   ))}
                 </ul>
                 <button className="plan-btn plan-btn-solid" disabled={!!checkoutLoading} onClick={() => { track('cta_clicked', { cta: 'plan_pro' }); handleCheckout('pro') }}>
-                  {checkoutLoading === 'pro' ? 'Aguarde...' : 'Começar com Pro'}
+                  {checkoutLoading === 'pro' ? 'Aguarde...' : 'Experimentar grátis por 30 dias'}
                 </button>
               </div>
 

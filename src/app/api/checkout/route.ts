@@ -7,12 +7,12 @@ const PLANS = {
   essencial: {
     name: 'Plano Essencial',
     description: 'Chatbot com IA para condomínios de até 100 unidades',
-    amount: 29900, // R$299,00
+    amount: 19900, // R$199,00
   },
   pro: {
     name: 'Plano Pro',
-    description: 'Chatbot com IA para condomínios de até 250 unidades',
-    amount: 49900, // R$499,00
+    description: 'Chatbot com IA para condomínios de até 200 unidades',
+    amount: 39900, // R$399,00
   },
 } as const
 
@@ -52,12 +52,13 @@ export async function POST(request: Request) {
             name: 'Ativação única',
             description: 'Configuração completa, onboarding e treinamento da IA',
           },
-          unit_amount: 99900, // R$999,00
+          unit_amount: 49900, // R$499,00
         },
         quantity: 1,
       },
     ],
     subscription_data: {
+      trial_period_days: 30,
       metadata: { plan },
     },
     locale: 'pt-BR',
