@@ -57,6 +57,7 @@ export default function DemoPage() {
         .demo-logo { display: flex; align-items: center; gap: 8px; margin-left: auto; }
         .demo-logo-mark { width: 28px; height: 28px; border-radius: 7px; background: #6366F1; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #fff; }
         .demo-logo-name { font-size: 14px; font-weight: 600; color: #111827; }
+        input::placeholder { color: #9CA3AF; }
       `}</style>
 
       <div className="demo-page">
