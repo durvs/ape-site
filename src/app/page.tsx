@@ -96,6 +96,22 @@ const features = [
 /* ─── Page ──────────────────────────────────────────────────────────────────── */
 export default function LandingPage() {
   const scrollTracked = useRef<Set<string>>(new Set())
+  const [checkoutLoading, setCheckoutLoading] = useState<string | null>(null)
+
+  async function handleCheckout(plan: 'essencial' | 'pro') {
+    setCheckoutLoading(plan)
+    try {
+      const res = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ plan }),
+      })
+      const data = await res.json()
+      if (data.url) window.location.href = data.url
+    } finally {
+      setCheckoutLoading(null)
+    }
+  }
 
   useEffect(() => {
     const sections = document.querySelectorAll('section[id]')
@@ -855,9 +871,9 @@ export default function LandingPage() {
                     <li key={f}><Check size={14} />{f}</li>
                   ))}
                 </ul>
-                <a href="/demo" className="plan-btn plan-btn-outline" onClick={() => track('cta_clicked', { cta: 'plan_essencial' })}>
-                  Começar com Essencial
-                </a>
+                <button className="plan-btn plan-btn-outline" disabled={!!checkoutLoading} onClick={() => { track('cta_clicked', { cta: 'plan_essencial' }); handleCheckout('essencial') }}>
+                  {checkoutLoading === 'essencial' ? 'Aguarde...' : 'Começar com Essencial'}
+                </button>
               </div>
 
               {/* Pro */}
@@ -881,9 +897,9 @@ export default function LandingPage() {
                     <li key={f}><Check size={14} />{f}</li>
                   ))}
                 </ul>
-                <a href="/demo" className="plan-btn plan-btn-solid" onClick={() => track('cta_clicked', { cta: 'plan_pro' })}>
-                  Começar com Pro
-                </a>
+                <button className="plan-btn plan-btn-solid" disabled={!!checkoutLoading} onClick={() => { track('cta_clicked', { cta: 'plan_pro' }); handleCheckout('pro') }}>
+                  {checkoutLoading === 'pro' ? 'Aguarde...' : 'Começar com Pro'}
+                </button>
               </div>
 
               {/* Sob medida */}
