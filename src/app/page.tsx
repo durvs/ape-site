@@ -857,14 +857,13 @@ export default function LandingPage() {
               <div className="plan">
                 <div className="plan-name">Essencial</div>
                 <div className="plan-price">R$199<span>/mês</span></div>
-                <div className="plan-desc">Para condomínios de até 100 unidades que querem sair do improviso.</div>
+                <div className="plan-desc">Para condomínios de até 49 unidades que querem sair do improviso.</div>
                 <div className="plan-divider" />
                 <ul className="plan-features">
-                  <li><Check size={14} /><UnitsLabel n={100} /></li>
+                  <li><Check size={14} /><UnitsLabel n={49} /></li>
                   {[
                     'Chatbot com IA no WhatsApp e web',
                     'Comunicados por e-mail',
-                    'Até 20 documentos indexados',
                     'Painel de gestão do síndico',
                     'Reserva de espaços',
                   ].map((f) => (
@@ -887,8 +886,7 @@ export default function LandingPage() {
                   <li><Check size={14} /><UnitsLabel n={200} /></li>
                   {[
                     'Tudo do Essencial',
-                    'Até 100 documentos indexados',
-                    'Agentes customizados (portaria, financeiro, manutenção)',
+                    'Agentes de IA Personalizados (portaria, etc)',
                     'Comunicados por WhatsApp',
                     'Automações e fluxos personalizados',
                     'Domínio próprio do condomínio',
@@ -915,7 +913,8 @@ export default function LandingPage() {
                     'Ata de assembleia gerada por IA',
                     'Gestão multi-prédio em painel unificado',
                     'Integrações customizadas',
-                    'Contrato e SLA dedicados',
+                    'Limites sob medida',
+                    'SLA dedicado',
                   ].map((f) => (
                     <li key={f}><Check size={14} />{f}</li>
                   ))}

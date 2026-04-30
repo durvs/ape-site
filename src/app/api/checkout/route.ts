@@ -6,7 +6,7 @@ export const dynamic = 'force-dynamic'
 const PLANS = {
   essencial: {
     name: 'Plano Essencial',
-    description: 'Chatbot com IA para condomínios de até 100 unidades',
+    description: 'Chatbot com IA para condomínios de até 49 unidades',
     amount: 19900, // R$199,00
   },
   pro: {
