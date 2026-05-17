@@ -45,17 +45,6 @@ export async function POST(request: Request) {
         },
         quantity: 1,
       },
-      {
-        price_data: {
-          currency: 'brl',
-          product_data: {
-            name: 'Ativação única',
-            description: 'Configuração completa, onboarding e treinamento da IA',
-          },
-          unit_amount: 49900, // R$499,00
-        },
-        quantity: 1,
-      },
     ],
     subscription_data: {
       trial_period_days: 30,

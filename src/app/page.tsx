@@ -850,7 +850,7 @@ export default function LandingPage() {
             <h2 className="section-title">
               Escolha pelo tamanho do condomínio.<br /><em>Escale quando precisar.</em>
             </h2>
-            <p className="section-sub">Setup de R$499 com configuração completa. Primeiros 30 dias grátis — a mensalidade começa no mês seguinte. Sem fidelidade, sem multa.</p>
+            <p className="section-sub">Primeiros 30 dias grátis — a mensalidade começa no mês seguinte. Sem taxa de ativação, sem fidelidade, sem multa.</p>
 
             <div className="pricing-grid">
               {/* Essencial */}
