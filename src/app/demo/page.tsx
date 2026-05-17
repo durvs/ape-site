@@ -6,11 +6,42 @@ import { track } from '@vercel/analytics'
 import Link from 'next/link'
 import { ArrowLeft, Loader2 } from 'lucide-react'
 
+function formatCNPJ(value: string): string {
+  const digits = value.replace(/\D/g, '').slice(0, 14)
+  return digits
+    .replace(/^(\d{2})(\d)/, '$1.$2')
+    .replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3')
+    .replace(/\.(\d{3})(\d)/, '.$1/$2')
+    .replace(/(\d{4})(\d)/, '$1-$2')
+}
+
+function isValidCNPJ(value: string): boolean {
+  const cnpj = value.replace(/\D/g, '')
+  if (cnpj.length !== 14) return false
+  if (/^(\d)\1+$/.test(cnpj)) return false
+
+  const calc = (length: number) => {
+    let sum = 0
+    let pos = length - 7
+    for (let i = 0; i < length; i++) {
+      sum += parseInt(cnpj[i]) * pos--
+      if (pos < 2) pos = 9
+    }
+    const result = sum % 11
+    return result < 2 ? 0 : 11 - result
+  }
+
+  return calc(12) === parseInt(cnpj[12]) && calc(13) === parseInt(cnpj[13])
+}
+
+type CNPJStatus = 'idle' | 'checking' | 'ok' | 'invalid' | 'not-found'
+
 export default function DemoPage() {
   const router = useRouter()
-  const [form, setForm] = useState({ name: '', email: '', phone: '', condoName: '', units: '' })
+  const [form, setForm] = useState({ name: '', email: '', phone: '', cnpj: '', condoName: '', units: '' })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [cnpjStatus, setCnpjStatus] = useState<CNPJStatus>('idle')
 
   useEffect(() => { track('demo_form_viewed') }, [])
 
@@ -18,8 +49,43 @@ export default function DemoPage() {
     setForm((f) => ({ ...f, [field]: value }))
   }
 
-  async function submit(e: React.FormEvent) {
+  function onCnpjChange(value: string) {
+    set('cnpj', formatCNPJ(value))
+    if (cnpjStatus !== 'idle') setCnpjStatus('idle')
+  }
+
+  async function lookupCNPJ() {
+    const digits = form.cnpj.replace(/\D/g, '')
+    if (digits.length === 0) return
+    if (!isValidCNPJ(form.cnpj)) {
+      setCnpjStatus('invalid')
+      return
+    }
+    setCnpjStatus('checking')
+    try {
+      const res = await fetch(`https://brasilapi.com.br/api/cnpj/v1/${digits}`)
+      if (!res.ok) {
+        setCnpjStatus('not-found')
+        return
+      }
+      const data = await res.json()
+      const officialName: string = (data.nome_fantasia || data.razao_social || '').trim()
+      if (officialName && !form.condoName) {
+        set('condoName', officialName)
+      }
+      setCnpjStatus('ok')
+    } catch {
+      setCnpjStatus('ok')
+    }
+  }
+
+  async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    if (!isValidCNPJ(form.cnpj)) {
+      setCnpjStatus('invalid')
+      setError('Verifique o CNPJ informado.')
+      return
+    }
     setLoading(true)
     setError(null)
 
@@ -33,7 +99,8 @@ export default function DemoPage() {
       if (!res.ok) throw new Error('Erro ao enviar')
 
       track('demo_requested', {
-        condoName: form.condoName || 'não informado',
+        condoName: form.condoName,
+        cnpj: form.cnpj,
         units: form.units || 'não informado',
       })
 
@@ -89,6 +156,59 @@ export default function DemoPage() {
                 </div>
 
                 <form onSubmit={submit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, color: '#374151', marginBottom: '6px' }}>
+                      CNPJ do condomínio <span style={{ color: '#EF4444' }}>*</span>
+                    </label>
+                    <input
+                      required
+                      type="text"
+                      inputMode="numeric"
+                      placeholder="00.000.000/0000-00"
+                      value={form.cnpj}
+                      onChange={(e) => onCnpjChange(e.target.value)}
+                      onBlur={(e) => { e.target.style.borderColor = cnpjStatus === 'invalid' || cnpjStatus === 'not-found' ? '#EF4444' : '#E5E7EB'; lookupCNPJ() }}
+                      onFocus={(e) => (e.target.style.borderColor = '#6366F1')}
+                      style={{ width: '100%', padding: '10px 14px', borderRadius: '8px', border: `1.5px solid ${cnpjStatus === 'invalid' || cnpjStatus === 'not-found' ? '#EF4444' : '#E5E7EB'}`, fontSize: '14px', outline: 'none', background: '#fff', boxSizing: 'border-box', fontFamily: 'monospace' }}
+                    />
+                    {cnpjStatus === 'checking' && (
+                      <p style={{ fontSize: '12px', color: '#6366F1', marginTop: '6px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <Loader2 size={12} className="animate-spin" /> Consultando Receita Federal...
+                      </p>
+                    )}
+                    {cnpjStatus === 'ok' && (
+                      <p style={{ fontSize: '12px', color: '#10B981', marginTop: '6px' }}>
+                        CNPJ válido.
+                      </p>
+                    )}
+                    {cnpjStatus === 'invalid' && (
+                      <p style={{ fontSize: '12px', color: '#EF4444', marginTop: '6px' }}>
+                        CNPJ inválido. Confira os dígitos.
+                      </p>
+                    )}
+                    {cnpjStatus === 'not-found' && (
+                      <p style={{ fontSize: '12px', color: '#EF4444', marginTop: '6px' }}>
+                        Não encontramos esse CNPJ na Receita Federal.
+                      </p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, color: '#374151', marginBottom: '6px' }}>
+                      Nome do condomínio <span style={{ color: '#EF4444' }}>*</span>
+                    </label>
+                    <input
+                      required
+                      type="text"
+                      placeholder="Residencial Primavera"
+                      value={form.condoName}
+                      onChange={(e) => set('condoName', e.target.value)}
+                      style={{ width: '100%', padding: '10px 14px', borderRadius: '8px', border: '1.5px solid #E5E7EB', fontSize: '14px', outline: 'none', background: '#fff', boxSizing: 'border-box' }}
+                      onFocus={(e) => (e.target.style.borderColor = '#6366F1')}
+                      onBlur={(e) => (e.target.style.borderColor = '#E5E7EB')}
+                    />
+                  </div>
+
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                     <div>
                       <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, color: '#374151', marginBottom: '6px' }}>
@@ -107,9 +227,10 @@ export default function DemoPage() {
                     </div>
                     <div>
                       <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, color: '#374151', marginBottom: '6px' }}>
-                        Telefone / WhatsApp
+                        Telefone / WhatsApp <span style={{ color: '#EF4444' }}>*</span>
                       </label>
                       <input
+                        required
                         type="tel"
                         placeholder="(11) 99999-0000"
                         value={form.phone}
@@ -131,21 +252,6 @@ export default function DemoPage() {
                       placeholder="joao@condominio.com.br"
                       value={form.email}
                       onChange={(e) => set('email', e.target.value)}
-                      style={{ width: '100%', padding: '10px 14px', borderRadius: '8px', border: '1.5px solid #E5E7EB', fontSize: '14px', outline: 'none', background: '#fff', boxSizing: 'border-box' }}
-                      onFocus={(e) => (e.target.style.borderColor = '#6366F1')}
-                      onBlur={(e) => (e.target.style.borderColor = '#E5E7EB')}
-                    />
-                  </div>
-
-                  <div>
-                    <label style={{ display: 'block', fontSize: '13px', fontWeight: 500, color: '#374151', marginBottom: '6px' }}>
-                      Nome do condomínio
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="Residencial Primavera"
-                      value={form.condoName}
-                      onChange={(e) => set('condoName', e.target.value)}
                       style={{ width: '100%', padding: '10px 14px', borderRadius: '8px', border: '1.5px solid #E5E7EB', fontSize: '14px', outline: 'none', background: '#fff', boxSizing: 'border-box' }}
                       onFocus={(e) => (e.target.style.borderColor = '#6366F1')}
                       onBlur={(e) => (e.target.style.borderColor = '#E5E7EB')}
